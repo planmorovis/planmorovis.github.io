@@ -98,14 +98,40 @@ button{font:inherit;color:inherit;cursor:pointer}
 #ov{opacity:0;pointer-events:none}
 .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,43,36,.88),rgba(15,43,36,.25) 55%,rgba(15,43,36,.05));pointer-events:none}
 #live{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .5s;z-index:1}
-.live #live{opacity:1;pointer-events:auto}
-.live #ov{opacity:0!important;pointer-events:none!important}
+.live.ready #live{opacity:1;pointer-events:auto}
+.live.ready #ov{opacity:0!important;pointer-events:none!important}
 .lmk{background:none;border:0;padding:0;cursor:pointer;line-height:0}
 .maplibregl-ctrl-attrib{font:11px var(--serif)!important}
 #pickmap{position:absolute;inset:0}
 .gps{position:absolute;right:10px;top:10px;z-index:2;background:var(--papel);color:var(--fondo);border:0;font:700 16px/1 var(--title);padding:9px 11px 8px}
 .err{color:#FF9A86;font-size:15px;margin-top:8px;min-height:1px}
 #prev{width:100%;max-height:260px;object-fit:cover;border-radius:6px;margin-top:10px}
+.ebar{position:absolute;top:0;left:0;right:0;z-index:7;display:none;gap:6px;flex-wrap:wrap;align-items:center;background:#E8573E;padding:8px 10px}
+.editing .ebar{display:flex}.editing .chips{top:60px}
+.ebar .et{font:700 17px/1 var(--title);color:#fff;margin-right:4px}
+.ebar button{background:#fff;color:#0F2B24;border:0;font:700 16px/1 var(--title);padding:8px 10px 7px}
+.ebar button.hot{background:#0F2B24;color:#fff}
+.ehint{position:absolute;left:12px;right:12px;top:110px;z-index:7;background:var(--papel);color:var(--fondo);padding:10px 12px;font-size:16px;display:none}
+.ehint.on{display:block}.ehint button{background:#0F2B24;color:#fff;border:0;font:700 15px/1 var(--title);padding:7px 9px;margin-left:6px}
+.epanel{position:absolute;left:0;right:0;bottom:0;z-index:8;max-height:72%;overflow:auto;background:var(--papel);color:var(--fondo);padding:14px 16px 18px;display:none}
+@media (min-width:900px){.epanel{left:auto;width:420px;top:0;max-height:none}}
+.epanel.on{display:block}
+.epanel .eh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.epanel .eh b{font:700 26px/1 var(--title)}
+.epanel .eh button{background:none;border:0;color:var(--fondo);font-size:15px;border-bottom:1px solid var(--fondo)}
+.epanel label{display:block;font-size:14px;color:#3d5a52;margin-top:10px}
+.epanel input,.epanel select,.epanel textarea{display:block;width:100%;margin-top:4px;font:400 17px var(--serif);color:var(--fondo);background:#fff;border:1px solid #9fb3aa;padding:8px}
+.epanel textarea{min-height:90px}
+.epanel img{width:100%;max-height:200px;object-fit:cover;margin-bottom:6px}
+.epanel .tip{font-size:14px;color:#3d5a52;margin-top:10px}
+.epanel .pend{background:#FBE6F0;padding:8px;font-size:15px}
+.epanel .btn{background:var(--fondo);color:var(--papel)}.epanel .btn.o{background:none;color:var(--fondo);box-shadow:inset 0 0 0 1.5px var(--fondo)}
+.rv{display:grid;grid-template-columns:80px 1fr;gap:10px;border-top:1px solid #c9d4cf;padding:10px 0}.rv img{width:80px;height:80px;object-fit:cover}.rv b{font:700 20px/1.1 var(--title)}.rv p{font-size:14px}
+.vtx{width:16px;height:16px;border-radius:50%;background:#FFE45C;border:2px solid #0F2B24;cursor:grab}
+.emodal{position:fixed;inset:0;z-index:70;background:rgba(5,18,15,.7);display:none;align-items:center;justify-content:center;padding:20px}
+.emodal.on{display:flex}
+.ebox{background:var(--papel);color:var(--fondo);padding:22px;max-width:420px;width:100%}
+.ebox h2{font-size:34px}.ebox p{margin-top:8px}.ebox input{width:100%;margin-top:12px;font:400 18px var(--serif);padding:10px;border:1px solid #9fb3aa}
+.ebox .btn{background:var(--fondo);color:var(--papel)}.ebox .btn.o{background:none;color:var(--fondo);box-shadow:inset 0 0 0 1.5px var(--fondo)}
 .dim{position:absolute;inset:0;background:#0A231D;opacity:0;pointer-events:none;z-index:2}
 .ttl{position:absolute;left:20px;right:20px;bottom:28px;z-index:3;pointer-events:none}
 .ttl h1{font-size:clamp(76px,22vw,180px);line-height:.85}
@@ -308,7 +334,7 @@ textarea{width:100%;min-height:96px;background:transparent;border:1.5px solid va
   <div class="mg"><div class="ml">Temas</div>
     <div class="mt"><a href="#tema/movilidad">Movilidad</a><a href="#tema/verde">Espacios verdes</a><a href="#tema/lugares">Lugares importantes</a><a href="#tema/propuestas">Propuestas</a></div></div>
   <div class="mg"><div class="ml">El proyecto</div>
-    <div class="mt"><a href="#tema/proceso">El proceso</a><a href="#sobre">Quiénes somos</a><a href="#aliados">Aliados</a></div></div>
+    <div class="mt"><a href="#tema/proceso">El proceso</a><a href="#sobre">Quiénes somos</a><a href="#aliados">Aliados</a><a href="#equipo">Equipo</a></div></div>
 </nav>
 
 <!-- ================= HOME ================= -->
@@ -324,7 +350,7 @@ textarea{width:100%;min-height:96px;background:transparent;border:1.5px solid va
       <p class="say" id="say1">Lo que dibujamos en la maqueta</p>
       <p class="say" id="say2">ahora está sobre Morovis</p>
       <div class="chips" id="chips"><button class="chip z" data-z="casco" aria-pressed="true">Casco urbano</button><button class="chip z" data-z="tb" aria-pressed="false">Torrecillas–Barahona</button><button class="chip r" aria-pressed="false" id="b3d">3D</button></div>
-      <button class="capas" id="capas" aria-expanded="false" aria-controls="legend">Leyenda y capas</button><div class="legend" id="legend" role="region" aria-label="Leyenda y capas"></div><div class="mcard" id="card" aria-live="polite"></div>
+      <button class="capas" id="capas" aria-expanded="false" aria-controls="legend">Leyenda y capas</button><div class="legend" id="legend" role="region" aria-label="Leyenda y capas"></div><div class="mcard" id="card" aria-live="polite"></div><div class="ebar" id="ebar"></div><div class="ehint" id="ehint"></div><div class="epanel" id="epanel"></div>
       <span class="credit" id="credit">Imágenes © Esri, Maxar</span><span class="heronote" id="heronote" hidden>Vista de la maqueta. La ubicación en el satélite se añade pronto.</span>
       <div class="cap" id="cap"><span class="idle">Toca un ícono para ver qué es.</span></div>
     </div>
@@ -425,6 +451,7 @@ textarea{width:100%;min-height:96px;background:transparent;border:1.5px solid va
   <div class="btns"><a class="btn" id="t-map" href="#mapa">Ver en el mapa</a></div>
 </div></main>
 
+<div class="emodal" id="emodal"></div>
 <div class="toast" id="toast">Esto es un mockup: en el sitio real, el reporte se envía al equipo.</div>
 
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
@@ -455,7 +482,7 @@ const KIND = {
   site:{name:'Sitios de intervención', one:'Sitio de intervención', desc:'Donde se concentran las propuestas', ring:'#0F2B24', tint:'#FFFFFF', icon:null, group:'ref'}
 };
 const GROUPS = [['found','Lo que encontramos'],['prop','Lo que proponemos'],['ref','Para orientarte']];
-const iconFor = it => ITEM_ICON[it.id] || KIND[it.type].icon;
+var iconFor = it => ITEM_ICON[it.id] || KIND[it.type].icon;
 function head(type, iconName, label, hot){
   const k = KIND[type];
   const inner = label ? `<text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="15" fill="#0F2B24">${label}</text>`
@@ -638,6 +665,8 @@ $('s-prev').onclick = () => go(cur-1); $('s-next').onclick = () => go(cur+1); go
 /* zone chips */
 document.querySelectorAll('.chip.z').forEach(b => b.onclick = () => {
   const tb = b.dataset.z === 'tb'; document.querySelectorAll('.chip.z').forEach(x => x.setAttribute('aria-pressed', x === b));
+  currentZone = tb ? 'tb' : 'casco';
+  if (typeof lmap !== 'undefined' && lmap && stage.classList.contains('ready')){ if (tb) lmap.flyTo({center:TB_CENTER, zoom:15.6, duration:1800}); else lmap.fitBounds(CONFIG.GEO.BOUNDS, {duration:1800}); $('cap').innerHTML = tb ? '<span>Zona: <i>Torrecillas–Barahona</i></span>' : '<span class="idle">Toca un ícono para ver qué es.</span>'; return; }
   $('heroimg').src = tb ? TBHERO : CASCOHERO; $('maqimg').style.visibility = tb ? 'hidden' : ''; $('live').style.visibility = tb ? 'hidden' : ''; $('b3d').style.visibility = tb ? 'hidden' : ''; $('ov').style.display = tb ? 'none' : ''; $('credit').hidden = tb; $('heronote').hidden = !tb;
   $('cap').innerHTML = tb ? '<span>Zona: <i>Torrecillas–Barahona</i></span><span>13 observaciones y 5 propuestas</span>' : '<span class="idle">Toca un ícono para ver qué es.</span>';
 });
@@ -647,6 +676,7 @@ const li = (c, txt, sub, ring) => `<div class="li"><span class="dot" style="back
 function route(){
   const h = location.hash.replace('#','') || 'inicio';
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  if (h === 'equipo'){ showMap(''); setTimeout(() => teamCode ? startEdit() : openLogin(), 300); return; }
   if (h.startsWith('mapa')){ showMap(h.split('/')[1] || ''); return; }
   $('t-extra').innerHTML = ''; $('t-map').href = '#mapa/' + (h.split('/')[1] || '');
   if (h === 'sobre'){
@@ -766,7 +796,7 @@ function markerEl(it, lab){
   const d = document.createElement('button'); d.className = 'lmk'; d.setAttribute('aria-label', `${KIND[it.type].one}: ${tn(it.title)}`);
   const isPin = it.kind === 'point';
   d.innerHTML = isPin ? `<svg width="34" height="46" viewBox="-15 -41 30 42">${pin(it.type,0,0,1,sel === it.id,iconFor(it))}</svg>` : `<svg width="32" height="32" viewBox="-15 -15 30 30">${badge(it.type,0,0,1,lab,sel === it.id,iconFor(it))}</svg>`;
-  d.onclick = e => { e.stopPropagation(); openCard(it); };
+  d.onclick = e => { e.stopPropagation(); editing ? openEdit(it) : openCard(it); };
   return d;
 }
 function updateLive(){
@@ -779,7 +809,14 @@ function updateLive(){
     if (!shown[it.type]) return;
     const c = it.kind === 'line' ? it.ll[Math.floor(it.ll.length*.62)] : [it.ll.reduce((s,p) => s+p[0],0)/it.ll.length, it.ll.reduce((s,p) => s+p[1],0)/it.ll.length];
     const el = markerEl(it, lab); if (dimmed(it)) el.style.opacity = .25;
-    lmarkers[it.id] = new maplibregl.Marker({element:el, anchor: it.kind === 'point' ? 'bottom' : 'center'}).setLngLat([c[1], c[0]]).addTo(lmap);
+    if (it.status === 'pending') el.style.opacity = .6;
+    const mk = new maplibregl.Marker({element:el, anchor: it.kind === 'point' ? 'bottom' : 'center', draggable: editing}).setLngLat([c[1], c[0]]).addTo(lmap);
+    if (editing){ let start = null;
+      mk.on('dragstart', () => { start = mk.getLngLat(); });
+      mk.on('dragend', () => { const q = mk.getLngLat(), dl = q.lat - start.lat, dg = q.lng - start.lng;
+        it.ll = it.kind === 'point' ? [[q.lat, q.lng]] : it.ll.map(([a,b]) => [a + dl, b + dg]); saveShape(it); });
+    }
+    lmarkers[it.id] = mk;
   });
 }
 function initLive(){
@@ -798,7 +835,7 @@ function initLive(){
     lmap.addLayer({id:'b-case', type:'line', source:'items', filter:['==',['get','type'],'bike'], layout:{'line-cap':'round','line-join':'round'}, paint:{'line-color':'#2a0d08', 'line-width':8, 'line-opacity':['case',['==',['get','dim'],1],.1,.45]}});
     lmap.addLayer({id:'b-line', type:'line', source:'items', filter:['==',['get','type'],'bike'], layout:{'line-cap':'round','line-join':'round'}, paint:{'line-color':['case',['==',['get','hot'],1],'#FFFFFF','#E8573E'], 'line-width':4.5, 'line-opacity':['case',['==',['get','dim'],1],.25,1]}});
     ['g-fill','b-line'].forEach(l => lmap.on('click', l, e => { const it = ITEMS.find(i => i.id === e.features[0].properties.id); if (it) openCard(it); }));
-    setupDone = true; updateLive();
+    setupDone = true; stage.classList.add('ready'); lmap.on('click', mapClick); updateLive();
   };
   const poll = setInterval(() => { if (setupDone) return clearInterval(poll); try { setup(); } catch(_){ } }, 200);
 }
@@ -810,10 +847,10 @@ $('b3d').onclick = () => {
 };
 
 /* load data from the Sheet */
-async function loadData(){
+async function loadData(team){
   if (!CONFIG.API_URL) return;
   try {
-    const r = await fetch(CONFIG.API_URL + '?action=list'); const j = await r.json(); if (!j.ok) throw 0;
+    const r = await fetch(CONFIG.API_URL + '?action=list' + (team && teamCode ? '&code=' + encodeURIComponent(teamCode) : '')); const j = await r.json(); if (!j.ok) throw 0;
     const list = j.items.map(fromRow).filter(Boolean); if (!list.length) return;
     ITEMS = list; drawMap(); updateLive(); renderLegend();
     const n = ITEMS.filter(i => i.zone !== 'tb').length; const z = $('casco-n'); if (z) z.textContent = n;
@@ -873,6 +910,141 @@ $('send').onclick = async () => {
   } catch(err){ $('e-send').textContent = 'No se pudo enviar. Revisa tu conexión e inténtalo otra vez.'; }
   finally { $('send').disabled = false; $('send').textContent = 'Enviar'; }
 };
+
+/* =====================================================================
+   TEAM EDIT MODE: sign in, drag, reshape, edit, approve
+   ===================================================================== */
+var TB_CENTER = [-66.4452, 18.342475];
+var currentZone = 'casco', editing = false, teamCode = '';
+try { teamCode = localStorage.getItem('pm-team') || ''; } catch(_){}
+var TB_SEED = [
+  ['issue','Dependencia externa'],['issue','Apagones frecuentes'],['issue','Baja natalidad'],['issue','Construcción informal'],['issue','Riesgos naturales'],['issue','Problemas de seguridad'],
+  ['issue','Brechas de salud y vivienda'],['issue','Vertederos clandestinos'],['issue','Carso frágil'],['issue','Falta de estacionamiento'],['issue','Calles estrechas'],['issue','Terreno sensible'],
+  ['proposal','Estacionamiento público con árboles y baños'],['proposal','Rehabilitación de una casa existente'],['proposal','Área para acampar'],['proposal','Sendero a lo largo de la zona'],['place','Casa con nota amarilla (nombre por confirmar)']
+];
+const TB_ICON = {'Dependencia externa':'shopping-cart','Apagones frecuentes':'bolt','Baja natalidad':'users-group','Construcción informal':'home-plus','Riesgos naturales':'eye','Problemas de seguridad':'eye-off','Brechas de salud y vivienda':'first-aid-kit','Vertederos clandestinos':'building-off','Carso frágil':'trees','Falta de estacionamiento':'parking','Calles estrechas':'road','Terreno sensible':'trees','Estacionamiento público con árboles y baños':'parking','Rehabilitación de una casa existente':'home-plus','Área para acampar':'trees','Sendero a lo largo de la zona':'walk'};
+iconFor = it => ITEM_ICON[it.id] || TB_ICON[it.title] || KIND[it.type].icon;
+
+async function apiT(action, body){ return api(action, Object.assign({code:teamCode}, body)); }
+const locStr = ll => ll.map(([a,b]) => `${(+a).toFixed(6)},${(+b).toFixed(6)}`).join('; ');
+function eToast(t, bad){ $('toast').textContent = t; $('toast').style.background = bad ? '#E8573E' : ''; $('toast').style.color = bad ? '#fff' : ''; flash(); }
+
+/* sign in */
+function openLogin(){
+  $('emodal').innerHTML = `<div class="ebox"><h2>Entrar como equipo</h2><p>Escribe la contraseña del equipo para editar el mapa.</p><input id="e-code" type="password" autocomplete="off" placeholder="Contraseña"><p class="err" id="e-cerr"></p><div class="btns"><button class="btn" id="e-go" type="button">Entrar</button><button class="btn o" id="e-cancel" type="button">Cancelar</button></div></div>`;
+  $('emodal').classList.add('on'); $('e-code').focus();
+  const go = async () => { const c = $('e-code').value.trim(); if (!c) return; $('e-go').textContent = 'Revisando…';
+    try { const r = await fetch(CONFIG.API_URL, {method:'POST', body:JSON.stringify({action:'auth', code:c})}); const j = await r.json();
+      if (!j.ok) throw 0; teamCode = c; try { localStorage.setItem('pm-team', c); } catch(_){} $('emodal').classList.remove('on'); startEdit();
+    } catch(_){ $('e-cerr').textContent = 'Esa contraseña no es correcta.'; $('e-go').textContent = 'Entrar'; } };
+  $('e-go').onclick = go; $('e-code').onkeydown = e => { if (e.key === 'Enter') go(); }; $('e-cancel').onclick = () => $('emodal').classList.remove('on');
+}
+async function startEdit(){
+  editing = true; document.body.classList.add('editing'); location.hash = '#mapa';
+  await loadData(true); renderEbar();
+  eToast('Modo equipo: arrastra los íconos para moverlos. Toca uno para editarlo.');
+}
+function stopEdit(){ editing = false; document.body.classList.remove('editing'); closeEdit(); cancelDraw(); loadData(false); }
+function renderEbar(){
+  const pend = ITEMS.filter(i => i.status === 'pending').length, tbHas = ITEMS.some(i => i.zone === 'tb');
+  $('ebar').innerHTML = `<span class="et">Modo equipo</span><button data-a="point">+ Punto</button><button data-a="area">+ Área</button><button data-a="line">+ Ruta</button><button data-a="review" class="${pend ? 'hot' : ''}">Por revisar (${pend})</button>${tbHas ? '' : '<button data-a="tbseed">Cargar notas de Torrecillas–Barahona</button>'}<button data-a="out">Salir</button>`;
+}
+$('ebar').addEventListener('click', e => { const a = e.target.closest('button'); if (!a) return; const k = a.dataset.a;
+  if (k === 'point' || k === 'area' || k === 'line') startDraw(k);
+  if (k === 'review') openReview();
+  if (k === 'tbseed') seedTB();
+  if (k === 'out') stopEdit();
+});
+
+/* drawing new things */
+var draw = null;
+function startDraw(kind){
+  closeEdit(); cancelDraw(); if (!lmap) return;
+  draw = {kind, pts:[]};
+  $('ehint').innerHTML = `${kind === 'point' ? 'Toca el mapa donde va el punto.' : kind === 'area' ? 'Toca las esquinas del área, una por una.' : 'Toca a lo largo de la ruta, punto por punto.'} ${kind === 'point' ? '' : '<button id="h-done">Terminar</button>'} <button id="h-x">Cancelar</button>`;
+  $('ehint').classList.add('on'); $('h-x').onclick = cancelDraw; const d = $('h-done'); if (d) d.onclick = finishDraw;
+  lmap.getCanvas().style.cursor = 'crosshair';
+}
+function cancelDraw(){ draw = null; $('ehint').classList.remove('on'); if (lmap){ lmap.getCanvas().style.cursor = ''; const s = lmap.getSource('draft'); if (s) s.setData({type:'FeatureCollection', features:[]}); } }
+function drawDraft(){
+  if (!lmap.getSource('draft')){ lmap.addSource('draft', {type:'geojson', data:{type:'FeatureCollection', features:[]}}); lmap.addLayer({id:'draft-l', type:'line', source:'draft', paint:{'line-color':'#FFE45C', 'line-width':3, 'line-dasharray':[2,1]}}); lmap.addLayer({id:'draft-p', type:'circle', source:'draft', paint:{'circle-radius':6, 'circle-color':'#FFE45C', 'circle-stroke-color':'#0F2B24', 'circle-stroke-width':2}}); }
+  const c = draw.pts.map(([a,b]) => [b,a]), f = [];
+  c.forEach(p => f.push({type:'Feature', geometry:{type:'Point', coordinates:p}}));
+  if (c.length > 1) f.push({type:'Feature', geometry:{type:'LineString', coordinates: draw.kind === 'area' && c.length > 2 ? [...c, c[0]] : c}});
+  lmap.getSource('draft').setData({type:'FeatureCollection', features:f});
+}
+function mapClick(e){
+  if (!draw) return;
+  draw.pts.push([e.lngLat.lat, e.lngLat.lng]);
+  if (draw.kind === 'point') return finishDraw();
+  drawDraft();
+}
+async function finishDraw(){
+  const d = draw; if (!d) return;
+  if (d.kind === 'area' && d.pts.length < 3) return eToast('Un área necesita al menos 3 esquinas.', true);
+  if (d.kind === 'line' && d.pts.length < 2) return eToast('Una ruta necesita al menos 2 puntos.', true);
+  cancelDraw();
+  const type = d.kind === 'point' ? 'issue' : d.kind === 'area' ? 'green' : 'bike';
+  try { const r = await apiT('add', {item:{type, title: d.kind === 'point' ? 'Nuevo punto' : d.kind === 'area' ? 'Nueva área' : 'Nueva ruta', description:'', location:locStr(d.pts), zone:currentZone}});
+    const it = fromRow(r.item); ITEMS.push(it); updateLive(); openEdit(it); eToast('Añadido. Ahora ponle categoría y nombre.');
+  } catch(err){ eToast(err.message, true); }
+}
+
+/* edit panel */
+var vtx = [];
+function clearVtx(){ vtx.forEach(m => m.remove()); vtx = []; }
+function openEdit(it){
+  sel = it.id; updateLive(); clearVtx();
+  const types = Object.keys(KIND).filter(k => it.kind === 'point' ? ['issue','abandoned','proposal','community','place'].includes(k) : it.kind === 'area' ? ['green','site'].includes(k) : k === 'bike');
+  $('epanel').innerHTML = `<div class="eh"><b>Editar</b><button id="ep-x">Cerrar</button></div>
+    ${it.status === 'pending' ? `<p class="pend">Enviado por la comunidad. Aún no está publicado.</p>` : ''}
+    ${it.images[0] ? `<img src="${it.images[0]}" alt="" referrerpolicy="no-referrer">` : ''}
+    <label>Categoría<select id="ep-type">${types.map(k => `<option value="${k}" ${k === it.type ? 'selected' : ''}>${KIND[k].one}</option>`).join('')}</select></label>
+    <label>Nombre<input id="ep-title" value="${(tn(it.title) || '').replace(/"/g,'&quot;')}"></label>
+    <label>Descripción<textarea id="ep-desc">${descOf(it)}</textarea></label>
+    <p class="tip">${it.kind === 'point' ? 'Para moverlo, arrastra el ícono en el mapa.' : 'Arrastra el ícono redondo para mover todo. Arrastra los puntos amarillos para cambiar la forma.'}</p>
+    <div class="btns">${it.status === 'pending' ? '<button class="btn" id="ep-ok">Aprobar y publicar</button>' : ''}<button class="btn" id="ep-save">Guardar</button><button class="btn o" id="ep-del">Eliminar</button></div>`;
+  $('epanel').classList.add('on');
+  $('ep-x').onclick = closeEdit;
+  $('ep-save').onclick = async () => { $('ep-save').textContent = 'Guardando…';
+    try { await apiT('update', {item:{id:it.id, type:$('ep-type').value, title:$('ep-title').value.trim() || it.title, description:$('ep-desc').value}}); it.type = $('ep-type').value; it.title = $('ep-title').value.trim() || it.title; it.text = $('ep-desc').value; delete DESC[it.title]; updateLive(); eToast('Guardado.'); closeEdit(); }
+    catch(err){ eToast(err.message, true); $('ep-save').textContent = 'Guardar'; } };
+  const ok = $('ep-ok'); if (ok) ok.onclick = async () => { try { await apiT('approve', {id:it.id}); it.status = 'approved'; renderEbar(); updateLive(); eToast('Publicado en el mapa.'); openEdit(it); } catch(err){ eToast(err.message, true); } };
+  $('ep-del').onclick = async e => { if (!e.target.dataset.c){ e.target.dataset.c = 1; e.target.textContent = 'Toca otra vez para eliminar'; return; }
+    try { await apiT('delete', {id:it.id}); ITEMS = ITEMS.filter(x => x.id !== it.id); closeEdit(); updateLive(); renderEbar(); eToast('Eliminado.'); } catch(err){ eToast(err.message, true); } };
+  if (it.kind !== 'point') it.ll.forEach((p,i) => {
+    const el = document.createElement('div'); el.className = 'vtx';
+    const m = new maplibregl.Marker({element:el, draggable:true}).setLngLat([p[1], p[0]]).addTo(lmap);
+    m.on('drag', () => { const q = m.getLngLat(); it.ll[i] = [q.lat, q.lng]; lmap.getSource('items').setData(liveData()); });
+    m.on('dragend', () => saveShape(it)); vtx.push(m);
+  });
+}
+function closeEdit(){ $('epanel').classList.remove('on'); clearVtx(); if (sel){ sel = null; updateLive(); } }
+async function saveShape(it){ it.pts = it.ll.map(([a,b]) => ll2hero(a,b)); try { await apiT('update', {item:{id:it.id, location:locStr(it.ll)}}); } catch(err){ eToast('No se guardó la posición: ' + err.message, true); } updateLive(); if (sel === it.id) openEdit(it); }
+
+/* review community photos */
+function openReview(){
+  closeEdit(); const list = ITEMS.filter(i => i.status === 'pending');
+  $('epanel').innerHTML = `<div class="eh"><b>Por revisar</b><button id="ep-x">Cerrar</button></div>` + (list.length ? list.map(i => `<div class="rv">${i.images[0] ? `<img src="${i.images[0]}" alt="" referrerpolicy="no-referrer">` : ''}<div><b>${tn(i.title)}</b><p>${i.text}</p><div class="btns"><button class="btn sm" data-ok="${i.id}">Aprobar</button><button class="btn o sm" data-see="${i.id}">Ver en el mapa</button><button class="btn o sm" data-no="${i.id}">Rechazar</button></div></div></div>`).join('') : '<p>No hay fotos esperando revisión.</p>');
+  $('epanel').classList.add('on'); $('ep-x').onclick = closeEdit;
+  $('epanel').querySelectorAll('[data-ok]').forEach(b => b.onclick = async () => { try { await apiT('approve', {id:b.dataset.ok}); ITEMS.find(x => x.id === b.dataset.ok).status = 'approved'; renderEbar(); updateLive(); openReview(); } catch(err){ eToast(err.message, true); } });
+  $('epanel').querySelectorAll('[data-no]').forEach(b => b.onclick = async () => { try { await apiT('delete', {id:b.dataset.no}); ITEMS = ITEMS.filter(x => x.id !== b.dataset.no); renderEbar(); updateLive(); openReview(); } catch(err){ eToast(err.message, true); } });
+  $('epanel').querySelectorAll('[data-see]').forEach(b => b.onclick = () => { const it = ITEMS.find(x => x.id === b.dataset.see); lmap.flyTo({center:[it.ll[0][1], it.ll[0][0]], zoom:18}); openEdit(it); });
+}
+
+/* put the Torrecillas–Barahona notes near the zone centre so the team can drag them into place */
+async function seedTB(){
+  if (!confirm('Se añadirán 17 notas de la maqueta de Torrecillas–Barahona alrededor del centro de la zona. Luego arrástralas a su lugar exacto. ¿Continuar?')) return;
+  const [lng0, lat0] = TB_CENTER; let n = 0;
+  eToast('Añadiendo notas…');
+  for (const [type, title] of TB_SEED){
+    const a = n / TB_SEED.length * Math.PI * 2, r = 0.0011 + (n % 2) * 0.0005;
+    const lat = lat0 + r * Math.sin(a), lng = lng0 + r * Math.cos(a) / Math.cos(lat0 * Math.PI / 180);
+    try { const res = await apiT('add', {item:{type, title, description:'Nota de la maqueta. Arrástrala a su lugar exacto.', location:`${lat.toFixed(6)},${lng.toFixed(6)}`, zone:'tb'}}); ITEMS.push(fromRow(res.item)); } catch(_){}
+    n++;
+  }
+  updateLive(); renderEbar(); lmap.flyTo({center:TB_CENTER, zoom:16.3}); eToast('Listo. Arrastra cada nota a su lugar.');
+}
 
 loadData();
 </script>
